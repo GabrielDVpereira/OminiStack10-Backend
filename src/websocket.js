@@ -7,15 +7,16 @@ exports.setupWebsocket = server => {
   io = socketio(server);
   io.listen(4001);
   io.on("connection", socket => {
-    const { latitude, longitute, techs } = socket.handshake.query;
+    const { latitude, longitude, techs } = socket.handshake.query;
     connections.push({
       id: socket.id,
       coordinates: {
         latitude: Number(latitude),
-        longitute: Number(longitute)
+        longitude: Number(longitude)
       },
       techs: parseArray(techs)
     });
+    console.log("connections", connections);
   });
 };
 
@@ -23,7 +24,7 @@ exports.findConnections = (coordinates, techs) => {
   return connections.filter(conn => {
     return (
       calculateDistance(coordinates, conn.coordinates) < 10 &&
-      conn.techs.some(item => techs.include(items))
+      conn.techs.some(item => techs.includes(item))
     );
   });
 };

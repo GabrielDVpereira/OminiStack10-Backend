@@ -26,7 +26,6 @@ module.exports = {
       const { name = login, avatar_url, bio } = response.data;
 
       const techsArray = parseToArray(techs);
-      console.log(techsArray);
 
       const location = {
         type: "Point",
@@ -52,7 +51,6 @@ module.exports = {
 
       sendMessage(sendMessageTo, "new-dev", dev);
 
-      console.log(sendMessageTo);
       return res.json(dev);
     } catch (error) {
       return res.status(400).send({
